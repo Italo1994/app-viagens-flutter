@@ -1,0 +1,20 @@
+{
+  "viagens": [
+    {
+      "id": "0",
+      "destino": "São Paulo",
+      "dataCadastro": "",
+      "detalhes": "",
+      "img": "",
+      "avaliacao": 0
+    },
+    {
+      "id": "1",
+      "destino": "Rio de Janeiro",
+      "dataCadastro": "",
+      "detalhes": "",
+      "img": "",
+      "avaliacao": 0
+    }
+  ]
+}
