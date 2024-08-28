@@ -1,7 +1,15 @@
+import 'dart:io';
+import 'package:image_picker/image_picker.dart';
+import 'package:path_provider/path_provider.dart';
+
 import 'package:app_viagens/repository/viagem_repository.dart';
 import 'package:app_viagens/services/viagem_service.dart';
 import 'package:flutter/material.dart';
 import '../models/viagem.dart';
+import '../screens/homepage.dart';
+import '../screens/viagem_list_screen.dart';
+
+import '../database/database.dart' as database;
 
 class PaginaCadastrarViagem extends StatefulWidget {
   const PaginaCadastrarViagem({super.key});
@@ -12,8 +20,14 @@ class PaginaCadastrarViagem extends StatefulWidget {
 
 class _PaginaCadastrarViagemState extends State<PaginaCadastrarViagem> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-
   final ViagemService _viagemService = ViagemService(ViagemRepository());
+
+  // configuração das rotas do BottomNavigationBar
+  int _indexSelecionadoPagina = 0;
+  final List<Widget> _routes = [
+    Homepage(),
+    TelaListaDeViagens(),
+  ];
   
   String _destino = "";
   String _detalhes = "";
@@ -42,6 +56,19 @@ class _PaginaCadastrarViagemState extends State<PaginaCadastrarViagem> {
 
   @override
   Widget build(BuildContext context) {
+
+    // navegar entre as opções de páginas da BottomNavigationBar
+    void _paginaSelecionada(int index) {
+      setState(() {
+        _indexSelecionadoPagina = index; // atualiza o index com base na opção clicada
+      });
+
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => _routes[_indexSelecionadoPagina])
+      );
+    }
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.blue,
@@ -134,6 +161,9 @@ class _PaginaCadastrarViagemState extends State<PaginaCadastrarViagem> {
                               onPressed: () {
                                 if(_formKey.currentState!.validate()) {
                                   _cadastrarViagem();
+
+                                  //await database.LocalDatabase().gravarDadosLocalmente(dadosJson: viagens);
+
                                   ScaffoldMessenger.of(context).showSnackBar(
                                     const SnackBar(content: Text('Viagem cadastrada')),
                                   );
@@ -162,11 +192,10 @@ class _PaginaCadastrarViagemState extends State<PaginaCadastrarViagem> {
             icon: Icon(Icons.travel_explore),
             label: 'Viagens',
           ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.info),
-            label: 'Informações',
-          )
-        ]
+
+        ],
+        currentIndex: _indexSelecionadoPagina,
+        onTap: _paginaSelecionada,
       )
     );
   }

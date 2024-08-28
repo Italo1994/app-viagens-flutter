@@ -2,19 +2,11 @@
   "viagens": [
     {
       "id": "0",
-      "destino": "São Paulo",
-      "dataCadastro": "",
-      "detalhes": "",
+      "destino": "Sao paulo",
+      "dataCadastro": "2024-08-27 19:40:40.291",
+      "detalhes": "sao paulo viagem",
       "img": "",
-      "avaliacao": 0
-    },
-    {
-      "id": "1",
-      "destino": "Rio de Janeiro",
-      "dataCadastro": "",
-      "detalhes": "",
-      "img": "",
-      "avaliacao": 0
+      "avaliacao": 9
     }
   ]
 }

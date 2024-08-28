@@ -1,3 +1,4 @@
+import 'package:app_viagens/screens/viagem_list_screen.dart';
 import 'package:flutter/material.dart';
 import './screens/homepage.dart';
 
@@ -18,7 +19,12 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: Homepage(title: 'Diário de viagens'),
+      initialRoute: '/',
+      routes: {
+        '/': (context) => Homepage(),
+        '/travels': (context) => TelaListaDeViagens(),
+      },
+      
     );
   }
 }
